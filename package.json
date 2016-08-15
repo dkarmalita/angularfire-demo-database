@@ -1,0 +1,27 @@
+{
+  "name": "angularfire-demo-database",
+  "version": "0.0.1",
+  "description": "AngularFire (Firebase) Database API demo, web application",
+  "main": "index.html",
+  "scripts": {
+   "prestart": "npm update",
+    "start": "live-server ./src/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dkarmalita/firebase-demo-database.git"
+  },
+  "keywords": [
+    "Firebase",
+    "Database",
+    "demo",
+    "web",
+    "app"
+  ],
+  "author": "Dmitriy Karmalita <dmitriy.karmalita@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.0.0"
+  }
+}

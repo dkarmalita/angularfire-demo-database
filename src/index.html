@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <title>My Site</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./img/favicon.ico" type="image/x-icon" sizes="16x16">
+
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <style>
+        .list-item {
+            padding: 10px 0;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+<div ng-controller="TodoCtrl" class="container" ng-app="TodoApp">
+
+    <h2>{{ headline }}</h2>
+    <h4>See real time binding by opening two browsers and adding, updating, or removing a TODO</h4>
+
+    <!--ADD ITEM FORM-->
+    <form name="todoForm">
+
+        <div>
+            <input type="text"
+                   name="todoNameField"
+                   ng-model="todoName"
+                   placeholder="Add new task (min 3 chars)"
+                   required ng-minlength="3"
+                   class="form-control"
+                   ng-keyup="($event.keyCode == 13 && todoName.length > 2) ? addtodo() : return"
+                   style="margin-bottom: 10px"
+                    />
+
+            <button ng-click="addTodo()"
+                    ng-hide="myForm.todoNameField.$invalid"
+                    class="btn btn-primary" type="button"
+                    >Save Todo
+            </button>
+        </div>
+
+    </form>
+
+    <hr />
+
+    <!--TODO LIST-->
+
+    <h4 ng-show="(todos | filter:{status: 'pending'}).length">Pending</h4>
+
+    <div ng-repeat="todo in todos | filter:{status: 'pending'}"
+         class="row list-item">
+
+        <div class="col-md-6">
+
+            <!--TODO LABEL-->
+            <span>{{todo.name}}</span>
+        </div>
+        <div class="col-md-6 text-right">
+            <!--START TODO BUTTON-->
+            <a class="btn btn-warning"
+               ng-click="startTodo($index, todo)">
+                Start
+            </a>
+
+            <!--DELETE TODO BUTTON-->
+            <a class="btn btn-danger"
+               ng-click="removeTodo($index, todo)">
+                <i class="glyphicon glyphicon-remove"></i> Remove
+            </a>
+
+        </div>
+
+    </div>
+
+    <h4 ng-show="(todos | filter:{status: 'in progress'}).length">In Progress</h4>
+
+    <div ng-repeat="todo in todos | filter:{status: 'in progress'}"
+         class="row list-item bg-warning">
+
+        <div class="col-md-6">
+
+            <!--TODO LABEL-->
+            <span>{{todo.name}}</span>
+        </div>
+        <div class="col-md-6 text-right">
+            <!--COMPLETED TODO BUTTON-->
+            <a class="btn btn-primary"
+               ng-click="completeTodo($index, todo)">
+                <i class="glyphicon glyphicon-ok"></i> Complete
+            </a>
+
+            <!--DELETE TODO BUTTON-->
+            <a class="btn btn-danger"
+               ng-click="removeTodo($index, todo)">
+                <i class="glyphicon glyphicon-remove"></i> Remove
+            </a>
+
+        </div>
+
+    </div>
+
+    <h4 ng-show="(todos | filter:{status: 'complete'}).length">Completed</h4>
+
+    <div ng-repeat="todo in todos | filter:{status: 'complete'}"
+         class="row list-item bg-success">
+
+        <div class="col-md-6">
+
+            <!--TODO LABEL-->
+            <span>{{todo.name}}</span>
+        </div>
+        <div class="col-md-6 text-right">
+
+            <!--DELETE TODO BUTTON-->
+            <a class="btn btn-danger"
+               ng-click="removeTodo($index, todo)">
+                <i class="glyphicon glyphicon-remove"></i> Remove
+            </a>
+
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="./scripts/app.js"></script>
+</div>
+</body>
+</html>
